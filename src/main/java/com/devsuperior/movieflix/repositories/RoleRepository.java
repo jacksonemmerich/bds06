@@ -2,8 +2,8 @@ package com.devsuperior.movieflix.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.devsuperior.movieflix.entities.User;
+import com.devsuperior.movieflix.entities.Role;
 
-public interface RoleRepository extends JpaRepository<User, Long> {
-	User findByEmail(String email);
+public interface RoleRepository extends JpaRepository<Role, Long> {
+	
 }
