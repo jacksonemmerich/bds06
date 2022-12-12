@@ -4,39 +4,36 @@ import java.io.Serializable;
 
 import com.devsuperior.movieflix.entities.Movie;
 
-public class MovieDTO implements Serializable {
+public class NewMovieDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
-
+	
 	private Long id;
 	private String title;
 	private String subTitle;
 	private Integer year;
 	private String imgUrl;
-	private String synopsis;
-	private GenreDTO genre;
+	//private GenreDTO genre;
 	
-	
-	public MovieDTO() {
+	public NewMovieDTO() {
 	}
 
+	//public NewMovieDTO(Long id, String title, String subTitle, Integer year, String imgUrl, Genre genre) {
+		//this.id = id;
+		//this.title = title;
+		//this.subTitle = subTitle;
+		//this.year = year;
+		//this.imgUrl = imgUrl;
+		//this.genre = genre;
+		
+	//}
 	
-	/*
-	 * public MovieDTO(Long id, String title, String subTitle, Integer year, String
-	 * imgUrl, String synopsis) { this.id = id; this.title = title; this.subTitle =
-	 * subTitle; this.year = year; this.imgUrl = imgUrl; this.synopsis = synopsis;
-	 * 
-	 * }
-	 */
-	
-	public MovieDTO(Movie entity) {
+	public NewMovieDTO(Movie entity) {
 		id = entity.getId();
 		title = entity.getTitle();
 		subTitle = entity.getSubTitle();
 		year = entity.getYear();
 		imgUrl = entity.getImgUrl();
-		synopsis = entity.getSynopsis();
-		genre = new GenreDTO(entity.getGenre());
-		
+		//genre = new GenreDTO(entity.getGenre());
 	}
 
 	public Long getId() {
@@ -78,27 +75,17 @@ public class MovieDTO implements Serializable {
 	public void setImgUrl(String imgUrl) {
 		this.imgUrl = imgUrl;
 	}
-
-	public String getSynopsis() {
-		return synopsis;
-	}
-
-	public void setSynopsis(String synopsis) {
-		this.synopsis = synopsis;
-	}
-
-
-	public GenreDTO getGenre() {
-		return genre;
-	}
-
-
-	public void setGenre(GenreDTO genre) {
-		this.genre = genre;
-	}
 	
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	} 
+
+	//public GenreDTO getGenre() {
+		//return genre;
+	//}
+
+	//public void setGenre(GenreDTO genre) {
+		//this.genre = genre;
+	//}	
 
 }

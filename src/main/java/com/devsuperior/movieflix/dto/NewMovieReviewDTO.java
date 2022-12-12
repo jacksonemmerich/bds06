@@ -2,36 +2,25 @@ package com.devsuperior.movieflix.dto;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.NotBlank;
-
 import com.devsuperior.movieflix.entities.Review;
 
-public class ReviewDTO implements Serializable {
-
+public class NewMovieReviewDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
-
+	
 	private Long id;
-	@NotBlank(message = "          ")
 	private String text;
 	private Long movieId;
-	private UserDTO userDTO;
-
-	public ReviewDTO() {
-
+	private UserDTO user; 
+	
+	public NewMovieReviewDTO() {
 	}
-
-	public ReviewDTO(Long id, String text, Long movieId) {
-		super();
-		this.id = id;
-		this.text = text;
-		this.movieId = movieId;
-	}
-
-	public ReviewDTO(Review entity) {
+	
+	public NewMovieReviewDTO(Review entity) {
 		id = entity.getId();
 		text = entity.getText();
 		movieId = entity.getMovie().getId();
-		this.userDTO = new UserDTO(entity.getUser());
+		user = new UserDTO(entity.getUser());
+		 
 	}
 
 	public Long getId() {
@@ -58,13 +47,16 @@ public class ReviewDTO implements Serializable {
 		this.movieId = movieId;
 	}
 
-	public UserDTO getUserDTO() {
-		return userDTO;
+	public UserDTO getUser() {
+		return user;
 	}
 
-	public void setUserDTO(UserDTO userDTO) {
-		this.userDTO = userDTO;
-	}	
-	
+	public void setUser(UserDTO user) {
+		this.user = user;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	} 
 
 }

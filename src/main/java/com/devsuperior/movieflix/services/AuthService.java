@@ -10,13 +10,12 @@ import com.devsuperior.movieflix.repositories.UserRepository;
 import com.devsuperior.movieflix.services.exceptions.ForbiddenException;
 import com.devsuperior.movieflix.services.exceptions.UnauthorizedException;
 
-
 @Service
 public class AuthService {
-	
+
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@Transactional(readOnly = true)
 	public User authenticated() {
 		try {
@@ -25,9 +24,9 @@ public class AuthService {
 		} catch (Exception e) {
 			throw new UnauthorizedException("Invalid user");
 		}
-		
+
 	}
-	
+
 	public void validateSelfOrAdmin(Long userId) {
 		User user = authenticated();
 		if (!user.getId().equals(userId) && !user.hasRole("ROLE_MEMBER")) {

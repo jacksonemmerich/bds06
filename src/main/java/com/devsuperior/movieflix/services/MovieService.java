@@ -1,7 +1,5 @@
 package com.devsuperior.movieflix.services;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.devsuperior.movieflix.dto.MovieDTO;
+import com.devsuperior.movieflix.dto.NewMovieDTO;
 import com.devsuperior.movieflix.entities.Genre;
 import com.devsuperior.movieflix.entities.Movie;
 import com.devsuperior.movieflix.repositories.GenreRepository;
@@ -19,27 +18,37 @@ import com.devsuperior.movieflix.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class MovieService {
+	
 	@Autowired
-	private MovieRepository repository;
+	private MovieRepository repository; 
+	
 	
 	@Autowired
 	private GenreRepository genreRepository;
 	
 	
+	//@Transactional(readOnly = true)
+	//public Page<NewMovieDTO> findAllPaged(Pageable pageable) {
+		//Page<Movie> page = repository.findAll(pageable);
+		//return page.map(x -> new NewMovieDTO(x));
+	//}
+	
+	
 	@Transactional(readOnly = true)
-	public Page<MovieDTO> findAllPaged(Long genreId, Pageable pageable) {
-		
-		List<Genre> genres = (genreId == 0) ? null : Arrays.asList(genreRepository.getOne(genreId));		
-		Page<Movie> page = repository.find(genres, pageable);		
-		repository.findProductsWithCategories(page.getContent()); 
-		return page.map(x -> new MovieDTO(x, x.getGenre()));
+	public Page<NewMovieDTO> findByGenre(Long genreId, Pageable pageable) {
+		Genre genre = (genreId == 0) ? null : genreRepository.getOne(genreId);
+		Page<Movie> page = repository.findByGenre(genre, pageable);
+		repository.findMoviesAndGenres(page.getContent());
+		return page.map(x -> new NewMovieDTO(x));
 	}
-
+	
+	
 	@Transactional(readOnly = true)
 	public MovieDTO findById(Long id) {
-		
 		Optional<Movie> obj = repository.findById(id);
-		Movie entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entity not found."));
-		return new MovieDTO(entity, entity.getGenre());
+		Movie entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entity not found"));
+		return new MovieDTO(entity);
 	}
+	
+	
 }
